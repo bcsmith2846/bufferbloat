@@ -170,7 +170,16 @@ PINGHOST="gstatic.com"
 MAXSESSIONS="5"
 TESTPROTO="-4"
 
+# normalize the options
 # read the options
+set -- $(getopt -s sh -u -n 'betterspeedtest.sh' -l 'host:' -l 'time:' -l 'ping:' -l 'number:' '46H:t:p:n:' "${@}")
+
+# exit if `getopt` fails and pass through exit code
+EXIT=$?
+if [ $EXIT != 0 ]
+then
+    exit $EXIT
+fi
 
 # extract options and their arguments into variables.
 while [ $# -gt 0 ]; do
